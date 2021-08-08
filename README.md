@@ -1,2 +1,0 @@
-# sebypacu-website
-Personal Website
