@@ -10,9 +10,8 @@ type Home struct {
 }
 
 func (hp *Home) Render() app.UI {
-	return app.Div().Body(
-		&components.Header{},
-	)
+	return app.Div().
+		Body(
+			&components.Header{},
+		)
 }
-
-
