@@ -2,34 +2,67 @@ package pages
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
+	"go-app/API"
 	"go-app/components"
-	"go-app/pages/API"
 	"log"
-	"strings"
 )
 
 type Countries struct {
 	app.Compo
-	CountriesList []CountryTable
-	ActivePage    string
+	CountryData
 }
 
-type CountryTable struct {
-	Name    string `json:"name"`
-	Capital string `json:"capital"`
-	Region  string `json:"region"`
-	Flag    string `json:"flag"`
+type CountryData struct {
+	Info []Country
+}
+
+type Country struct {
+	Name         string   `json:"name"`
+	Capital      string   `json:"capital"`
+	Region       string   `json:"region"`
+	Flag         string   `json:"flag"`
+	AltSpellings []string `json:"altSpellings"`
+	Subregion    string   `json:"subregion"`
+	//Translations   map[string]string
+	Population     int32     `json:"population"`
+	LatLng         []float32 `json:"latlng"`
+	Demonym        string    `json:"demonym"`
+	Area           float32   `json:"area"`
+	Gini           float32   `json:"gini"`
+	Timezones      []string  `json:"timezones"`
+	Borders        []string  `json:"borders"`
+	NativeName     string    `json:"nativeName"`
+	CallingCodes   []string  `json:"callingCodes"`
+	NumericCode    string    `json:"numericCode"`
+	TopLevelDomain []string  `json:"topLevelDomain"`
+	Alpha2Code     string    `json:"alpha2code"`
+	Alpha3Code     string    `json:"alpha3code"`
+	Data           struct {
+		Children []struct {
+			Data Countries
+		}
+	}
+}
+
+type Currencies struct {
+	Code   string `json:"code"`
+	Name   string `json:"name"`
+	Symbol string `json:"symbol"`
+}
+
+type Languages struct {
+	Name       string `json:"name"`
+	NativeName string `json:"nativeName"`
 }
 
 func (c *Countries) Render() app.UI {
 
 	return app.Div().Body(
 		&components.Header{},
-		app.Button().Class("test").Text("generate").OnClick(c.generateCountries),
+		app.Button().Class("test").Text("generate").OnClick(c.initCountries),
 
-		app.If(len(c.CountriesList) > 0,
+		app.If(len(c.Info) > 0,
 
 			app.Table().
 				Class("table").
@@ -71,37 +104,41 @@ func (c *Countries) Render() app.UI {
 						),
 					app.TBody().
 						Body(
-							app.Range(c.CountriesList).Slice(func(i int) app.UI {
-								country := c.CountriesList[i]
-								countryLink := strings.ReplaceAll(country.Name, " ", "-")
+							app.Range(c.Info).Slice(func(i int) app.UI {
+								current := c.Info[i]
+
 								return app.Tr().
 									Body(
 										app.Th().
 											Scope("row").
-											Text(i),
+											Text(i+1),
 										app.Td().
 											Body(
-												app.Button().
-													Type("button").
-													Class("btn").
-													Class("btn-info").
-													Text(country.Name).
-													OnClick(c.OnCountryClick).
-													ID(countryLink),
+												app.P().
+													Class("h4").
+													Text(current.Name),
 											),
 										app.Td().
 											Body(
 												app.Img().
 													Class("img-thumbnail").
 													Class("img-rounded").
-													Src(country.Flag).
-													Alt(country.Name+" img").
+													Src(current.Flag).
+													Alt(current.Name).
 													Style("width", "150px"),
 											),
 										app.Td().
-											Text(country.Capital),
+											Body(
+												app.P().
+													Class("h4").
+													Text(current.Capital),
+											),
 										app.Td().
-											Text(country.Region),
+											Body(
+												app.P().
+													Class("h4").
+													Text(current.Region),
+											),
 									)
 							}),
 						),
@@ -113,19 +150,14 @@ func (c *Countries) Render() app.UI {
 	)
 }
 
-func (c *Countries) OnCountryClick(ctx app.Context, e app.Event) {
-	c.ActivePage = ctx.JSSrc.Get("id").String()
-	ctx.Navigate(fmt.Sprintf("/location-details/name/%s", c.ActivePage))
-}
-
-func (c *Countries) generateCountries(ctx app.Context, e app.Event) {
-	c.initCountries(ctx)
-}
-
-func (c *Countries) initCountries(ctx app.Context) {
-	if err := json.Unmarshal(API.FetchData("all"), &c.CountriesList); err != nil {
+func (c *Countries) initCountries(ctx app.Context, e app.Event) {
+	res, err := API.FetchCountries("all")
+	if err != nil {
 		log.Fatalln(err.Error())
 	}
-
 	c.Update()
+
+	if err := json.Unmarshal(res, &c.Info); err != nil {
+		log.Fatalln("Eroare la json Unmarshal pe initCountries()", err.Error())
+	}
 }

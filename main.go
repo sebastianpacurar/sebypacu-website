@@ -7,22 +7,11 @@ import (
 	"net/http"
 )
 
-var links = map[string]app.Composer{
-	"/countries": &page.Countries{},
-	"/second":    &page.Second{},
-	"/third":     &page.Third{},
-	"/fourth":    &page.Fourth{},
-}
-
 func main() {
 	app.Route("/", &page.Home{})
 
-	for link, composer := range links {
-		app.Route(link, composer)
-	}
+	app.Route("/countries", &page.Countries{})
 
-	// Match all countries routes to avoid looping 150 times
-	app.RouteWithRegexp("^/location-details/.*", &page.CountryPage{})
 	app.RunWhenOnBrowser()
 
 	http.Handle("/", &app.Handler{
