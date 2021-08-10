@@ -1,7 +1,9 @@
 package header
 
 import (
+	"fmt"
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
+	"strings"
 )
 
 type NavBar struct {
@@ -20,10 +22,7 @@ type MenuItem struct {
 func (n *NavBar) Render() app.UI {
 
 	var testMenu = Menu{Items: []MenuItem{
-		{Title: "Countries", Link: "/countries"},
-		{Title: "Second", Link: "/second"},
-		{Title: "Third", Link: "/third"},
-		{Title: "Fourth", Link: "/fourth"},
+		{Title: "countries", Link: "/countries"},
 	}}
 
 	return app.Nav().
@@ -31,16 +30,19 @@ func (n *NavBar) Render() app.UI {
 		Class("navbar-expand-lg").
 		Class("navbar-light").
 		Style("background-color", "lightseagreen").
-		Style("margin-bottom", "15").
+		Style("margin-bottom", "8px").
 		Body(
 			app.Ul().
-				Class("navbar-nav").
+				Class("nav").
+				Class("nav-pills").
+				Class("nav-fill").
 				Body(
 					app.Li().
 						Class("nav-item").
 						Body(
 							app.A().
 								Class("nav-link").
+								Class("active").
 								Class("link-dark").
 								Href("/").
 								Body(
@@ -56,13 +58,33 @@ func (n *NavBar) Render() app.UI {
 							Class("nav-item").
 							Body(
 								app.A().
+									ID(fmt.Sprintf("nav-link-%s", testMenu.Items[i].Title)).
 									Class("link-dark").
 									Class("nav-link").
 									Href(testMenu.Items[i].Link).
 									Text(testMenu.Items[i].Title),
 							)
 					}),
+
+					/// Check to see if Countries link, contains the class "active". If true, then render Countries Search Bar
+					app.If(strings.Contains(app.Window().GetElementByID("nav-link-countries").Get("class").String(), "active"),
+						app.Form().
+							Class("form-inline").
+							Body(
+								app.Input().
+									Type("search").
+									Class("form-control").
+									Class("mr-sm-2").
+									Placeholder("Search Country").
+									Aria("label", "Search"),
+							),
+					),
 				),
 		)
 
+}
+
+func (n *NavBar) OnNavLinkClick(ctx app.Context, e app.Event) {
+	ctx.JSSrc.Set("class", "active")
+	n.Update()
 }
