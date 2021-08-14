@@ -15,7 +15,7 @@ func main() {
 	app.RunWhenOnBrowser()
 
 	http.Handle("/", &app.Handler{
-		Name: "Pure By Go",
+		Name: "Golang based website",
 		RawHeaders: []string{
 			`<!--Bootstrap 4.6 CSS-->
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -24,7 +24,7 @@ func main() {
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		`,
 		},
-		Title: "go+wasm=rulz",
+		Title: "1 fel de 2 feluri",
 	})
 
 	if err := http.ListenAndServe(":9000", nil); err != nil {

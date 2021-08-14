@@ -8,6 +8,8 @@ import (
 
 type NavBar struct {
 	app.Compo
+
+	IsSearchBarDisplayed bool
 }
 
 type Menu struct {
@@ -22,14 +24,17 @@ type MenuItem struct {
 func (n *NavBar) Render() app.UI {
 
 	var testMenu = Menu{Items: []MenuItem{
-		{Title: "countries", Link: "/countries"},
+		{Title: "Countries", Link: "/countries"},
+		{Title: "Quiz Game", Link: "/universal-quiz-game"},
+
 	}}
 
 	return app.Nav().
 		Class("navbar").
 		Class("navbar-expand-lg").
 		Class("navbar-light").
-		Style("background-color", "lightseagreen").
+		Style("background-color", "#ff5F1f").
+
 		Style("margin-bottom", "8px").
 		Body(
 			app.Ul().
@@ -40,11 +45,11 @@ func (n *NavBar) Render() app.UI {
 					app.Li().
 						Class("nav-item").
 						Body(
-							app.A().
+							app.Button().
+								Type("button").
+								ID("home-icon").
 								Class("nav-link").
-								Class("active").
-								Class("link-dark").
-								Href("/").
+								Style("color", "white").
 								Body(
 									app.Span().
 										Class("material-icons").
@@ -56,6 +61,33 @@ func (n *NavBar) Render() app.UI {
 					app.Range(testMenu.Items).Slice(func(i int) app.UI {
 						return app.Li().
 							Class("nav-item").
+							Body(app.If(testMenu.Items[0].Title == "Quiz Game",
+								app.Button().
+									Type("button").
+									ID(fmt.Sprintf("%s-nav-link", testMenu.Items[i].Title)).
+									Class("btn").
+									Class("btn-primary").
+									Class("btn-large").
+									Name(testMenu.Items[i].Title).
+									Text(testMenu.Items[i].Title).
+									Style("color", "white").
+									Disabled(true),
+							).Else(
+								app.Button().
+									Type("button").
+									ID(fmt.Sprintf("%s-nav-link", testMenu.Items[i].Title)).
+									Class("btn").
+									Class("btn-primary").
+									Class("btn-large").
+									Name(testMenu.Items[i].Title).
+									Text(testMenu.Items[i].Title).
+									Style("color", "white").
+									OnClick(n.onUpdateClick),
+							))
+					}),
+
+					/// If update is true
+					app.If(n.IsSearchBarDisplayed,
 							Body(
 								app.A().
 									ID(fmt.Sprintf("nav-link-%s", testMenu.Items[i].Title)).
@@ -84,7 +116,13 @@ func (n *NavBar) Render() app.UI {
 
 }
 
-func (n *NavBar) OnNavLinkClick(ctx app.Context, e app.Event) {
-	ctx.JSSrc.Set("class", "active")
+func (n *NavBar) OnAppUpdate(ctx app.Context, e app.Event) {
+	n.IsSearchBarDisplayed = ctx.AppUpdateAvailable
 	n.Update()
+}
+
+func (n *NavBar) onUpdateClick(ctx app.Context, e app.Event) {
+	n.IsSearchBarDisplayed = !n.IsSearchBarDisplayed
+
+	ctx.Navigate(fmt.Sprintf("localhost:9000/%s", ctx.JSSrc.Get("name").String()))
 }
