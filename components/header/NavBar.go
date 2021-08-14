@@ -3,6 +3,7 @@ package header
 import (
 	"fmt"
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
+	"strings"
 )
 
 type NavBar struct {
@@ -25,6 +26,7 @@ func (n *NavBar) Render() app.UI {
 	var testMenu = Menu{Items: []MenuItem{
 		{Title: "Countries", Link: "/countries"},
 		{Title: "Quiz Game", Link: "/universal-quiz-game"},
+
 	}}
 
 	return app.Nav().
@@ -32,6 +34,7 @@ func (n *NavBar) Render() app.UI {
 		Class("navbar-expand-lg").
 		Class("navbar-light").
 		Style("background-color", "#ff5F1f").
+
 		Style("margin-bottom", "8px").
 		Body(
 			app.Ul().
@@ -85,6 +88,18 @@ func (n *NavBar) Render() app.UI {
 
 					/// If update is true
 					app.If(n.IsSearchBarDisplayed,
+							Body(
+								app.A().
+									ID(fmt.Sprintf("nav-link-%s", testMenu.Items[i].Title)).
+									Class("link-dark").
+									Class("nav-link").
+									Href(testMenu.Items[i].Link).
+									Text(testMenu.Items[i].Title),
+							)
+					}),
+
+					/// Check to see if Countries link, contains the class "active". If true, then render Countries Search Bar
+					app.If(strings.Contains(app.Window().GetElementByID("nav-link-countries").Get("class").String(), "active"),
 						app.Form().
 							Class("form-inline").
 							Body(
