@@ -2,32 +2,33 @@ package main
 
 import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
-	page "go-app/pages"
 	"log"
 	"net/http"
+	"pwa/experiments"
+	page "pwa/pages"
 )
 
 func main() {
 	app.Route("/", &page.Home{})
-
 	app.Route("/countries", &page.Countries{})
+	app.Route("/quiz-game", &page.QuizGame{})
+	app.Route("/experiments", &experiments.Mortaciuni{})
 
 	app.RunWhenOnBrowser()
 
 	http.Handle("/", &app.Handler{
-		Name: "Golang based website",
-		RawHeaders: []string{
-			`<!--Bootstrap 4.6 CSS-->
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
-			<!--Google Material Icons-->
-			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		`,
-		},
 		Title: "1 fel de 2 feluri",
+		Name: "Wasm Fun",
+		RawHeaders: []string{
+			`<!--Google Material Icons-->
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`,
+		},
+		Styles: []string{
+			"/web/style/styles.css",
+		},
 	})
 
-	if err := http.ListenAndServe(":9000", nil); err != nil {
+	if err := http.ListenAndServe(":8000", nil); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -1,4 +1,4 @@
-module go-app
+module pwa
 
 go 1.16
 

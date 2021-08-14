@@ -3,9 +3,9 @@ package pages
 import (
 	"encoding/json"
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
-	"go-app/API"
-	"go-app/components"
 	"log"
+	"pwa/API"
+	"pwa/components"
 )
 
 type Countries struct {
@@ -147,6 +147,7 @@ func (c *Countries) Render() app.UI {
 			app.Div().
 				Text("not displayed"),
 		),
+		&components.Footer{},
 	)
 }
 
