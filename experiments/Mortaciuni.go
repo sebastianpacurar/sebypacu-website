@@ -14,6 +14,7 @@ func (m *Mortaciuni) Render() app.UI {
 		Div().
 		Body(
 			&components.Header{},
+			&components.NavBar{},
 			app.
 				Div().
 				Style("height", "300px").

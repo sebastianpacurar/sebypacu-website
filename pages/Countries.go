@@ -56,11 +56,17 @@ type Languages struct {
 	NativeName string `json:"nativeName"`
 }
 
+func (c *Countries) OnNav(ctx app.Context) {
+	c.initCountries(ctx)
+	c.Update()
+}
+
 func (c *Countries) Render() app.UI {
 
 	return app.Div().Body(
 		&components.Header{},
-		app.Button().Class("test").Text("generate").OnClick(c.initCountries),
+		&components.NavBar{},
+		//app.Button().Class("test").Text("generate").OnClick(c.InitCountries),
 
 		app.If(len(c.Info) > 0,
 
@@ -151,12 +157,11 @@ func (c *Countries) Render() app.UI {
 	)
 }
 
-func (c *Countries) initCountries(ctx app.Context, e app.Event) {
+func (c *Countries) initCountries(ctx app.Context) {
 	res, err := API.FetchCountries("all")
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	c.Update()
 
 	if err := json.Unmarshal(res, &c.Info); err != nil {
 		log.Fatalln("Eroare la json Unmarshal pe initCountries()", err.Error())

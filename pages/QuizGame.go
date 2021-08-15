@@ -15,6 +15,7 @@ type QuizGame struct {
 func (qg *QuizGame) Render() app.UI {
 	return app.Div().Body(
 		&components.Header{},
+		&components.NavBar{},
 		&components.Footer{},
 	)
 }

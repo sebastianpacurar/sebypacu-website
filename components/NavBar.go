@@ -11,108 +11,86 @@ type NavBar struct {
 }
 
 type Menu struct {
-	Items []MenuItem
+	MenuItems []MenuItem
 }
 
 type MenuItem struct {
-	Title  string
-	Link   string
-	Active bool
+	Title string
+	Link  string
+}
+
+// OnLinkClick
+// Handler for the navigation bar UI
+func (n *NavBar) OnLinkClick(ctx app.Context, e app.Event) {
+
 }
 
 func (n *NavBar) Render() app.UI {
 
-	var testMenu = Menu{Items: []MenuItem{
-		{Title: "Home", Link: "/", Active: true},
-		{Title: "Countries", Link: "/countries", Active: false},
-		{Title: "Quiz Game", Link: "/quiz-game", Active: false},
-		{Title: "Mortăciuni!", Link: "/experiments", Active: false},
+	var testMenu = Menu{MenuItems: []MenuItem{
+		{Title: "Home", Link: "/"},
+		{Title: "Countries", Link: "/countries"},
+		{Title: "Quiz Game", Link: "/quiz-game"},
+		{Title: "Mortăciuni!", Link: "/experiments"},
 	}}
 
 	return app.
 		Nav().
 		Body(
 			app.
-				Range(testMenu.Items).Slice(func(i int) app.UI {
-				currentItem := testMenu.Items[i]
-				linkId := "/"
+				Range(testMenu.MenuItems).Slice(func(i int) app.UI {
+				currentItem := testMenu.MenuItems[i]
+				itemContainerID := "/"
 				if currentItem.Title != "Home" {
-					linkId = strings.ReplaceAll(strings.ToLower(currentItem.Title), " ", "-")
+					itemContainerID = strings.ReplaceAll(strings.ToLower(currentItem.Title), " ", "-")
 				}
 				return app.
-					If(i == len(testMenu.Items)-1,
+					If(i == len(testMenu.MenuItems)-1,
 						app.
 							Div().
 							Class("space-filler"),
 						app.
 							Div().
+							Class("nav-item").
 							Class("right").
 							Body(
 								app.
 									A().
-									ID(linkId).
+									ID(itemContainerID).
 									Href(currentItem.Link).
 									Text(currentItem.Title),
 							),
-					).Else(
-					app.
-						If(linkId == "/" && currentItem.Active,
-							app.
-								Div().
-								Class("active").
-								Body(
-									app.
-										A().
-										ID("home-icon").
-										Href("/").
-										Body(
-											app.
-												Span().
-												Class("material-icons").
-												Class("md-48").
-												Text("home"),
-										),
-								),
-						).
-						ElseIf(linkId == "/" && !currentItem.Active,
-							app.
-								Div().
-								Body(
-									app.A().
-										ID("home-icon").
-										Href("/").
-										Body(
-											app.
-												Span().
-												Class("material-icons").
-												Class("md-48").
-												Text("home"),
-										),
-								),
-						).
-						ElseIf(linkId != "/" && currentItem.Active,
-							app.
-								Div().
-								Class("active").
-								Body(
-									app.A().
-										ID(linkId).
-										Href(currentItem.Link).
-										Text(currentItem.Title),
-								),
-						).
-						Else(
-							app.
-								Div().
-								Body(
-									app.A().
-										ID(linkId).
-										Href(currentItem.Link).
-										Text(currentItem.Title),
-								),
-						),
-				)
-
+					).
+					ElseIf(currentItem.Title == "Home",
+						app.
+							Div().
+							ID("home-icon").
+							Class("nav-item").
+							Body(
+								app.
+									A().
+									Href(currentItem.Link).
+									Body(
+										app.
+											Span().
+											Class("material-icons").
+											Class("md-48").
+											Text("home"),
+									),
+							),
+					).
+					Else(
+						app.
+							Div().
+							Class("nav-item").
+							Body(
+								app.
+									A().
+									ID(itemContainerID).
+									Href(currentItem.Link).
+									Text(currentItem.Title),
+							),
+					)
 			}),
 		)
 }
