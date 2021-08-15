@@ -1,7 +1,7 @@
 magic:
-	rm -f web/app.wasm website
+	rm -f web/app.wasm pwa
 	GOOS=js GOARCH=wasm go build -o web/app.wasm
-	go build -o website
-	./website
+	go build -o pwa
+	./pwa
 
 

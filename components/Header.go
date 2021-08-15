@@ -9,8 +9,10 @@ type Header struct {
 }
 
 func (h *Header) Render() app.UI {
-	return app.Main().
+	return app.Header().
 		Body(
-			&NavBar{},
+			app.
+				H1().
+				Text("Placeholder head"),
 		)
 }

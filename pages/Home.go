@@ -13,6 +13,7 @@ func (hp *Home) Render() app.UI {
 	return app.Div().
 		Body(
 			&components.Header{},
+			&components.NavBar{},
 			&components.Footer{},
 		)
 }
