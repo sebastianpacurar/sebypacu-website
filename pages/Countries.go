@@ -2,6 +2,7 @@ package pages
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
 	"log"
 	"pwa/API"
@@ -18,26 +19,11 @@ type CountryData struct {
 }
 
 type Country struct {
-	Name         string   `json:"name"`
-	Capital      string   `json:"capital"`
-	Region       string   `json:"region"`
-	Flag         string   `json:"flag"`
-	AltSpellings []string `json:"altSpellings"`
-	Subregion    string   `json:"subregion"`
-	//Translations   map[string]string
-	Population     int32     `json:"population"`
-	LatLng         []float32 `json:"latlng"`
-	Demonym        string    `json:"demonym"`
-	Area           float32   `json:"area"`
-	Gini           float32   `json:"gini"`
-	Timezones      []string  `json:"timezones"`
-	Borders        []string  `json:"borders"`
-	NativeName     string    `json:"nativeName"`
-	CallingCodes   []string  `json:"callingCodes"`
-	NumericCode    string    `json:"numericCode"`
-	TopLevelDomain []string  `json:"topLevelDomain"`
-	Alpha2Code     string    `json:"alpha2code"`
-	Alpha3Code     string    `json:"alpha3code"`
+	Name       string `json:"name"`
+	Capital    string `json:"capital"`
+	Region     string `json:"region"`
+	Flag       string `json:"flag"`
+	Alpha2Code string `json:"alpha2code"`
 }
 
 type Currencies struct {
@@ -71,7 +57,6 @@ func (c *Countries) Render() app.UI {
 
 					app.
 						Table().
-						ID("countries").
 						Body(
 							app.
 								Caption().
@@ -127,7 +112,7 @@ func (c *Countries) Render() app.UI {
 															Class("h4").
 															Text(current.Region),
 													),
-											)
+											).OnClick(OnCountryClick)
 									}),
 								),
 							app.
@@ -139,7 +124,7 @@ func (c *Countries) Render() app.UI {
 											ColSpan(4).
 											Text("Go to Top"),
 									),
-								).OnClick(scrollToTop),
+								).OnClick(scrollToTableTitle),
 						),
 					&components.Footer{},
 				).Else(
@@ -162,6 +147,10 @@ func (c *Countries) initCountries(ctx app.Context) error {
 	return nil
 }
 
-func scrollToTop(ctx app.Context, e app.Event) {
+func scrollToTableTitle(ctx app.Context, e app.Event) {
 	app.Window().ScrollToID("table-title")
+}
+
+func OnCountryClick(ctx app.Context, e app.Event) {
+	ctx.Navigate(fmt.Sprintf("/country/%s", ctx.JSSrc.Get("id").String()))
 }
