@@ -38,11 +38,6 @@ type Country struct {
 	TopLevelDomain []string  `json:"topLevelDomain"`
 	Alpha2Code     string    `json:"alpha2code"`
 	Alpha3Code     string    `json:"alpha3code"`
-	Data           struct {
-		Children []struct {
-			Data Countries
-		}
-	}
 }
 
 type Currencies struct {
@@ -71,41 +66,22 @@ func (c *Countries) Render() app.UI {
 		app.If(len(c.Info) > 0,
 
 			app.Table().
-				Class("table").
-				Class("table-sm").
-				Class("table-hover").
-				Class("table-bordered").
-				Class("border-info").
-				Class("table-stripped").
-				Class("caption-top").
+				ID("countries").
 				Body(
 					app.Caption().
 						Text("List of All Countries and independent Islands, Regions"),
 					app.THead().
-						Class("thead-light").
 						Body(
 							app.Tr().
 								Body(
 									app.Th().
-										Scope("col").
-										Text("#").
-										Style("width", "20%"),
+										Text("Name"),
 									app.Th().
-										Scope("col").
-										Text("Name").
-										Style("width", "20%"),
+										Text("Flag"),
 									app.Th().
-										Scope("col").
-										Text("Flag").
-										Style("width", "20%"),
+										Text("Capital"),
 									app.Th().
-										Scope("col").
-										Text("Capital").
-										Style("width", "20%"),
-									app.Th().
-										Scope("col").
-										Text("Region").
-										Style("width", "20%"),
+										Text("Region"),
 								),
 						),
 					app.TBody().
@@ -114,25 +90,16 @@ func (c *Countries) Render() app.UI {
 								current := c.Info[i]
 
 								return app.Tr().
+									ID(current.Alpha2Code).
 									Body(
-										app.Th().
-											Scope("row").
-											Text(i+1),
 										app.Td().
-											Body(
-												app.P().
-													Class("h4").
-													Text(current.Name),
-											),
+											Text(current.Name),
 										app.Td().
+											Class("image-cell").
 											Body(
 												app.Img().
-													Class("img-thumbnail").
-													Class("img-rounded").
 													Src(current.Flag).
-													Alt(current.Name).
-													Style("width", "150px"),
-											),
+													Alt(current.Name)),
 										app.Td().
 											Body(
 												app.P().

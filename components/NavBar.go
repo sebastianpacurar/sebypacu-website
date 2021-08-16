@@ -73,8 +73,8 @@ func (n *NavBar) Render() app.UI {
 									Body(
 										app.
 											Span().
+											ID("nav-bar-home-icon").
 											Class("material-icons").
-											Class("md-48").
 											Text("home"),
 									),
 							),
