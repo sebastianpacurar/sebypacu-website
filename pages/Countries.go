@@ -26,17 +26,6 @@ type Country struct {
 	Alpha2Code string `json:"alpha2code"`
 }
 
-type Currencies struct {
-	Code   string `json:"code"`
-	Name   string `json:"name"`
-	Symbol string `json:"symbol"`
-}
-
-type Languages struct {
-	Name       string `json:"name"`
-	NativeName string `json:"nativeName"`
-}
-
 func (c *Countries) OnNav(ctx app.Context) {
 	if err := c.initCountries(ctx); err != nil {
 		return
@@ -45,7 +34,6 @@ func (c *Countries) OnNav(ctx app.Context) {
 }
 
 func (c *Countries) Render() app.UI {
-
 	return app.
 		Div().
 		Body(
@@ -86,6 +74,7 @@ func (c *Countries) Render() app.UI {
 										return app.
 											Tr().
 											ID(current.Alpha2Code).
+											DataSet("country", current.Name).
 											Body(
 												app.
 													Td().
@@ -112,7 +101,7 @@ func (c *Countries) Render() app.UI {
 															Class("h4").
 															Text(current.Region),
 													),
-											).OnClick(OnCountryClick)
+											).OnClick(c.OnCountryClick)
 									}),
 								),
 							app.
@@ -151,6 +140,6 @@ func scrollToTableTitle(ctx app.Context, e app.Event) {
 	app.Window().ScrollToID("table-title")
 }
 
-func OnCountryClick(ctx app.Context, e app.Event) {
+func (c *Countries) OnCountryClick(ctx app.Context, e app.Event) {
 	ctx.Navigate(fmt.Sprintf("/country/%s", ctx.JSSrc.Get("id").String()))
 }

@@ -13,7 +13,7 @@ table caption {
 
 table thead {
     position: sticky;
-    top: 4.2%;
+    top: 28px;
     height: 40px;
     background-color: darkturquoise;
     scroll-behavior: smooth;
