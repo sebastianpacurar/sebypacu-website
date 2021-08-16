@@ -12,7 +12,11 @@ table caption {
 }
 
 table thead {
+    position: sticky;
+    top: -5%;
+    height: 40px;
     background-color: darkturquoise;
+    scroll-behavior: smooth;
 }
 
 table tbody th {
@@ -22,6 +26,7 @@ table tbody th {
 
 table td {
     text-align: center;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
 table td img {
@@ -29,21 +34,30 @@ table td img {
 }
 
 table td, table th {
-    border: 1px solid aliceblue;
+    border: 2px solid aliceblue;
 }
 
-table tr:nth-child(even) {
-    background-color: lightgoldenrodyellow;
+table tbody tr:nth-child(even) {
+    background-color: lightsteelblue;
 }
 
-table tr:hover {
+table tbody tr:nth-child(odd) {
+    background-color: lightgrey;
+}
+
+table tbody tr:hover {
     background-color: lightskyblue;
     cursor: pointer;
 }
 
-tfoot {
+table tfoot {
+    position: sticky;
+    bottom: -1px;
+    height: 40px;
     background-color: darkseagreen;
+    cursor: pointer;
 }
 
-
-
+table tfoot:hover {
+    background-color: aquamarine;
+}

@@ -26,8 +26,11 @@ func main() {
 		Styles: []string{
 			"/web/style/Header.css",
 			"/web/style/Navbar.css",
+			"/web/style/Spinner.css",
 			"/web/style/CountriesPage.css",
+			//"/web/style/Footer.css",
 		},
+		ThemeColor: "#fcf5e5",
 	})
 
 	if err := http.ListenAndServe(":8000", nil); err != nil {
