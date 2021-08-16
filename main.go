@@ -18,13 +18,15 @@ func main() {
 
 	http.Handle("/", &app.Handler{
 		Title: "1 fel de 2 feluri",
-		Name: "Wasm Fun",
+		Name:  "Wasm Fun",
 		RawHeaders: []string{
 			`<!--Google Material Icons-->
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`,
 		},
 		Styles: []string{
-			"/web/style/styles.css",
+			"/web/style/Header.css",
+			"/web/style/Navbar.css",
+			"/web/style/CountriesPage.css",
 		},
 	})
 

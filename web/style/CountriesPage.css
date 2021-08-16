@@ -1,0 +1,49 @@
+table {
+    table-layout: fixed;
+    width: 90%;
+    font-family: serif;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table caption {
+    margin-bottom: 25px;
+    font-family: sans-serif;
+}
+
+table thead {
+    background-color: darkturquoise;
+}
+
+table tbody th {
+    background-color: darkseagreen;
+    width: 20%
+}
+
+table td {
+    text-align: center;
+}
+
+table td img {
+    width: 50px
+}
+
+table td, table th {
+    border: 1px solid aliceblue;
+}
+
+table tr:nth-child(even) {
+    background-color: lightgoldenrodyellow;
+}
+
+table tr:hover {
+    background-color: lightskyblue;
+    cursor: pointer;
+}
+
+tfoot {
+    background-color: darkseagreen;
+}
+
+
+
