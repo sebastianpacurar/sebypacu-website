@@ -52,85 +52,116 @@ type Languages struct {
 }
 
 func (c *Countries) OnNav(ctx app.Context) {
-	c.initCountries(ctx)
+	if err := c.initCountries(ctx); err != nil {
+		return
+	}
 	c.Update()
 }
 
 func (c *Countries) Render() app.UI {
 
-	return app.Div().Body(
-		&components.Header{},
-		&components.NavBar{},
-		//app.Button().Class("test").Text("generate").OnClick(c.InitCountries),
+	return app.
+		Div().
+		Body(
+			&components.Header{},
+			&components.NavBar{},
 
-		app.If(len(c.Info) > 0,
+			app.
+				If(len(c.Info) > 0,
 
-			app.Table().
-				ID("countries").
-				Body(
-					app.Caption().
-						Text("List of All Countries and independent Islands, Regions"),
-					app.THead().
+					app.
+						Table().
+						ID("countries").
 						Body(
-							app.Tr().
+							app.
+								Caption().
+								ID("table-title").
+								Text("List of All Countries and independent Islands, Regions"),
+							app.
+								THead().
 								Body(
-									app.Th().
-										Text("Name"),
-									app.Th().
-										Text("Flag"),
-									app.Th().
-										Text("Capital"),
-									app.Th().
-										Text("Region"),
+									app.Tr().
+										Body(
+											app.Th().
+												Text("Name"),
+											app.Th().
+												Text("Flag"),
+											app.Th().
+												Text("Capital"),
+											app.Th().
+												Text("Region"),
+										),
 								),
+							app.
+								TBody().
+								Body(
+									app.
+										Range(c.Info).Slice(func(i int) app.UI {
+										current := c.Info[i]
+										return app.
+											Tr().
+											ID(current.Alpha2Code).
+											Body(
+												app.
+													Td().
+													Text(current.Name),
+												app.
+													Td().
+													Class("image-cell").
+													Body(
+														app.
+															Img().
+															Src(current.Flag).
+															Alt(current.Name)),
+												app.
+													Td().
+													Body(
+														app.P().
+															Class("h4").
+															Text(current.Capital),
+													),
+												app.
+													Td().
+													Body(
+														app.P().
+															Class("h4").
+															Text(current.Region),
+													),
+											)
+									}),
+								),
+							app.
+								Tfoot().
+								Body(
+									app.Tr().Body(
+										app.
+											Td().
+											ColSpan(4).
+											Text("Go to Top"),
+									),
+								).OnClick(scrollToTop),
 						),
-					app.TBody().
-						Body(
-							app.Range(c.Info).Slice(func(i int) app.UI {
-								current := c.Info[i]
-
-								return app.Tr().
-									ID(current.Alpha2Code).
-									Body(
-										app.Td().
-											Text(current.Name),
-										app.Td().
-											Class("image-cell").
-											Body(
-												app.Img().
-													Src(current.Flag).
-													Alt(current.Name)),
-										app.Td().
-											Body(
-												app.P().
-													Class("h4").
-													Text(current.Capital),
-											),
-										app.Td().
-											Body(
-												app.P().
-													Class("h4").
-													Text(current.Region),
-											),
-									)
-							}),
-						),
-				),
-		).Else(
-			app.Div().
-				Text("not displayed"),
-		),
-		&components.Footer{},
-	)
+					&components.Footer{},
+				).Else(
+				&components.Spinner{},
+			),
+		)
 }
 
-func (c *Countries) initCountries(ctx app.Context) {
+func (c *Countries) initCountries(ctx app.Context) error {
 	res, err := API.FetchCountries("all")
 	if err != nil {
-		log.Fatalln(err.Error())
+		log.Fatalln("Eroare la fetch data spre RETST EU", err.Error())
+		return err
 	}
 
 	if err := json.Unmarshal(res, &c.Info); err != nil {
 		log.Fatalln("Eroare la json Unmarshal pe initCountries()", err.Error())
+		return err
 	}
+	return nil
+}
+
+func scrollToTop(ctx app.Context, e app.Event) {
+	app.Window().ScrollToID("table-title")
 }

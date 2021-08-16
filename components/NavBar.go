@@ -19,12 +19,6 @@ type MenuItem struct {
 	Link  string
 }
 
-// OnLinkClick
-// Handler for the navigation bar UI
-func (n *NavBar) OnLinkClick(ctx app.Context, e app.Event) {
-
-}
-
 func (n *NavBar) Render() app.UI {
 
 	var testMenu = Menu{MenuItems: []MenuItem{

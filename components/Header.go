@@ -12,7 +12,7 @@ func (h *Header) Render() app.UI {
 	return app.Header().
 		Body(
 			app.
-				H1().
-				Text("Placeholder head"),
+				H2().
+				Text("Goodbye JavaScript, and FU! ╭∩╮(・◞・) "),
 		)
 }
