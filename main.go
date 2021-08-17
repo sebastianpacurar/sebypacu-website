@@ -9,9 +9,6 @@ import (
 )
 
 func main() {
-	//if err := CompileToSass(); err != nil {
-	//	return
-	//}
 	app.Route("/", &page.Home{})
 	app.Route("/countries", &page.Countries{})
 	app.Route("/quiz-game", &page.QuizGame{})

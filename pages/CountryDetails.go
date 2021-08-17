@@ -70,58 +70,28 @@ func (cd *CountryDetails) Render() app.UI {
 				If(len(cd.Details) > 0,
 					app.
 						Div().
+						Class("form-container").
 						Body(
 							app.Range(cd.Details).Slice(func(i int) app.UI {
 								country := cd.Details[i]
 								return app.
 									Ul().
 									Body(
-										app.
-											Li().
-											Text(country.Name),
-										app.
-											Li().
-											Text(country.TopLevelDomain),
-										app.
-											Li().
-											Text(country.Alpha2Code),
-										app.
-											Li().
-											Text(country.Alpha3Code),
-										app.
-											Li().
-											Text(country.CallingCodes),
-										app.
-											Li().
-											Text(country.Subregion),
-										app.
-											Li().
-											Text(country.Population),
-										app.
-											Li().
-											Text(country.Flag),
-										app.
-											Li().
-											Text(country.LatLng),
-										app.
-											Li().
-											Text(country.Demonym),
-										app.
-											Li().
-											Text(country.Gini),
-										app.
-											Li().
-											Text(country.Timezones),
-										app.
-											Li().
-											Text(country.Borders),
-										app.
-											Li().
-											Text(country.NativeName),
-										app.
-											Li().
-											Text(country.NumericCode),
-
+										app.Li().Text(country.Name),
+										app.Li().Text(country.TopLevelDomain),
+										app.Li().Text(country.Alpha2Code),
+										app.Li().Text(country.Alpha3Code),
+										app.Li().Text(country.CallingCodes),
+										app.Li().Text(country.Subregion),
+										app.Li().Text(country.Population),
+										app.Li().Text(country.Flag),
+										app.Li().Text(country.LatLng),
+										app.Li().Text(country.Demonym),
+										app.Li().Text(country.Gini),
+										app.Li().Text(country.Timezones),
+										app.Li().Text(country.Borders),
+										app.Li().Text(country.NativeName),
+										app.Li().Text(country.NumericCode),
 										app.
 											Li().
 											Body(
@@ -132,7 +102,6 @@ func (cd *CountryDetails) Render() app.UI {
 														app.Li().Text(currency.Code),
 														app.Li().Text(currency.Symbol),
 													)
-
 												}),
 											),
 										app.
