@@ -1,6 +1,8 @@
+@import "vars.css";
+
 table {
     table-layout: fixed;
-    width: 90%;
+    width: 100%;
     font-family: serif;
     border-collapse: collapse;
     margin: 0 auto;
@@ -60,4 +62,67 @@ table tfoot {
 
 table tfoot:hover {
     background-color: aquamarine;
+}
+
+main#countries-container {
+    margin: 0 5%
+}
+
+main#countries-container div.form-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+main#countries-container form#search-countries {
+    width: 50%;
+    outline: none;
+}
+
+main#countries-container input[type="text"]#country-input {
+    padding: 8px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid darkslategrey;
+    transition-duration: 0.4s;
+}
+
+main#countries-container input[type="text"]#country-input:focus {
+    display: block;
+    padding: 8px;
+    border-bottom: 1px solid var(--primary-color);
+    outline: none;
+}
+
+main#countries-container input[type="text"]#country-input:focus {
+    display: block;
+    padding: 8px;
+    border-bottom: 1px solid var(--primary-color);
+    outline: none;
+}
+
+main form#search-countries {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    left: 25%;
+    margin-bottom: 5%; /* TODO:this can be problematic on some heights. */
+}
+
+main form#search-countries button {
+    background-color: #ffffff;
+    border: 1px solid var(--primary-color);
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+main form#search-countries button:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
 }

@@ -13,6 +13,6 @@ func (h *Header) Render() app.UI {
 		Body(
 			app.
 				H2().
-				Text("FU, JavaScript! ╭∩╮(・◞・) "),
+				Text("Bye and FU, JavaScript! ╭∩╮(・◞・) "),
 		)
 }

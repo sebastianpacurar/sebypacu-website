@@ -24,7 +24,7 @@ func (n *NavBar) Render() app.UI {
 	var testMenu = Menu{MenuItems: []MenuItem{
 		{Title: "Home", Link: "/"},
 		{Title: "Countries", Link: "/countries"},
-		{Title: "Quiz Game", Link: "/quiz-game"},
+		{Title: "Quiz", Link: "/quiz-game"},
 		{Title: "Mortăciuni!", Link: "/experiments"},
 	}}
 

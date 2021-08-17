@@ -7,7 +7,6 @@ import (
 
 type Spinner struct {
 	app.Compo
-	Reason string
 }
 
 func (s *Spinner) Render() app.UI {
@@ -25,6 +24,6 @@ func (s *Spinner) Render() app.UI {
 				),
 			app.
 				H4().
-				Text(fmt.Sprintf("Loading %s...", s.Reason)),
+				Text(fmt.Sprintf("Loading...")),
 		)
 }
