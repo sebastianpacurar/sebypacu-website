@@ -1,16 +1,18 @@
 @import "vars.css";
 
+main {
+    font-family: var(--primary-font-family);
+}
+
 table {
     table-layout: fixed;
     width: 100%;
-    font-family: serif;
     border-collapse: collapse;
     margin: 0 auto;
 }
 
 table caption {
     margin-bottom: 25px;
-    font-family: sans-serif;
 }
 
 table thead {
@@ -75,30 +77,30 @@ main#countries-container div.form-container {
 }
 
 main#countries-container form#search-countries {
-    width: 50%;
+    width: 40%;
     outline: none;
 }
 
 main#countries-container input[type="text"]#country-input {
+    font-size: 15px;
     padding: 8px;
     display: block;
     border: none;
-    border-bottom: 1px solid darkslategrey;
+    border-bottom: 2px solid black;
     transition-duration: 0.4s;
 }
 
 main#countries-container input[type="text"]#country-input:focus {
     display: block;
     padding: 8px;
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    color: darkgreen;
     outline: none;
 }
 
-main#countries-container input[type="text"]#country-input:focus {
-    display: block;
-    padding: 8px;
-    border-bottom: 1px solid var(--primary-color);
-    outline: none;
+main#countries-container input[type="text"]#country-input::placeholder {
+    color: darkgreen;
+    opacity: 1;
 }
 
 main form#search-countries {
@@ -106,18 +108,18 @@ main form#search-countries {
     justify-content: space-around;
     align-items: center;
     position: relative;
-    left: 25%;
-    margin-bottom: 5%; /* TODO:this can be problematic on some heights. */
+    left: 30%;
+    margin-bottom: 5%; /* TODO:this can be problematic on some device heights. */
 }
 
 main form#search-countries button {
     background-color: #ffffff;
-    border: 1px solid var(--primary-color);
-    color: #000000;
+    border: 2px solid var(--primary-color);
+    color: darkgreen;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 25px;
     cursor: pointer;
     transition-duration: 0.4s;
 }
