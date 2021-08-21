@@ -71,6 +71,11 @@ form button:hover {
     color: #ffffff;
 }
 
+form button:active {
+    background-color: darkgreen;
+    color: #ffffff;
+}
+
 form div#table-layout-container {
     display: flex;
 }
@@ -87,6 +92,11 @@ form #table-layout-container .table-layout-view {
 form #table-layout-container .table-layout-view:hover {
     color: #ffffff;
     background-color: var(--primary-color);
+}
+
+form #table-layout-container .table-layout-view:active {
+    color: #ffffff;
+    background-color: darkgreen
 }
 
 /*****  TABLE STYLE  ****/
@@ -135,6 +145,10 @@ td img {
 
 td img:hover {
     transform: scale(8.0);
+}
+
+tbody tr:nth-last-child(2) img, tbody tr:last-child img {
+    transform-origin: bottom;
 }
 
 tbody tr:hover td:first-child {
@@ -190,4 +204,67 @@ tfoot:active {
 
 
 /*****  GRID CARDS CONTENTS  ****/
+
+article#cards-container {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 2%;
+}
+
+figure {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+figure img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 300px;
+    height: 200px;
+    max-width: 100%;
+    display: block;
+}
+
+figcaption p {
+    color: grey;
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info p {
+    font-size: 12px;
+}
+
+.card-info p:first-child {
+    color: grey;
+}
+
+.view-country-btn {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    transition-duration: 0.4s;
+}
+
+.view-country-btn:hover {
+    opacity: 0.7;
+}
 
