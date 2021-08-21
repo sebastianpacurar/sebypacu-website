@@ -43,11 +43,9 @@ func (c *Countries) Render() app.UI {
 				If(len(c.Info) > 0,
 					app.
 						Main().
-						ID("countries-container").
 						Body(
 							app.
 								Form().
-								ID("search-countries").
 								Body(
 									app.
 										Input().
@@ -59,6 +57,21 @@ func (c *Countries) Render() app.UI {
 										Type("submit").
 										Value("Submit").
 										Text("Fetch!"),
+									app.
+										Div().
+										ID("table-layout-container").
+										Body(
+											app.
+												Span().
+												Class("material-icons").
+												Class("table-layout-view").
+												Text("table_view"),
+											app.
+												Span().
+												Class("material-icons").
+												Class("table-layout-view").
+												Text("grid_view"),
+										),
 								),
 							app.
 								Table().
@@ -66,7 +79,7 @@ func (c *Countries) Render() app.UI {
 									app.
 										Caption().
 										ID("table-title").
-										Text("List of All Countries and independent Islands, Regions"),
+										Text("All Countries"),
 									app.
 										THead().
 										Body(
@@ -108,16 +121,24 @@ func (c *Countries) Render() app.UI {
 														app.
 															Td().
 															Body(
-																app.P().
-																	Class("h4").
-																	Text(current.Capital),
+																app.If(current.Capital == "",
+																	app.P().
+																		Text("N/A"),
+																).Else(
+																	app.P().
+																		Text(current.Capital),
+																),
 															),
 														app.
 															Td().
 															Body(
-																app.P().
-																	Class("h4").
-																	Text(current.Region),
+																app.If(current.Region == "",
+																	app.P().
+																		Text("N/A"),
+																).Else(
+																	app.P().
+																		Text(current.Region),
+																),
 															),
 													).OnClick(c.OnCountryClick)
 											}),
