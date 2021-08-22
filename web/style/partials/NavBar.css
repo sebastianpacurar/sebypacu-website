@@ -1,0 +1,81 @@
+@import "../vars.css";
+
+nav {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    background-color: var(--1st-color);;
+    margin-bottom: 30px;
+    position: sticky;
+    top: -0.1%;
+    z-index: 9;
+}
+
+.navbar-icons {
+    display: flex;
+    color: white;
+    font-size: 125%;
+    padding: 0 2.5%;
+}
+
+#side-menu-toggle button {
+    font-size: 125%;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+#side-menu-toggle button:hover {
+    background: none;
+    outline: none;
+    border: none;
+}
+
+#side-menu-toggle button:active {
+    background: none;
+    outline: none;
+    border: none;
+}
+
+nav div {
+    padding: 20px;
+}
+
+nav div.right {
+    justify-self: flex-end;
+}
+
+nav div.nav-item a,
+#side-menu-toggle button,
+#home-icon span {
+    color: white;
+    font-size: 125%;
+    text-align: center;
+    text-decoration: none;
+
+    border: 6px solid var(--1st-color);
+    border-color: var(--1st-color);
+    border-radius: 5px;
+}
+
+/* Force the size of the icons to be bigger than the text menu items */
+nav #side-menu-toggle button span,
+nav #home-icon a span {
+    font-size: 200% !important;
+}
+
+nav div.nav-item a:hover {
+    background-color: var(--2nd-color);
+    border-color: var(--2nd-color);
+}
+
+nav div.nav-item a:active {
+    background-color: var(--3rd-color);
+    border-color: var(--3rd-color);
+}
+
+.space-filler {
+    flex-grow: 1;
+}

@@ -1,9 +1,11 @@
 html {
+    font-family: var(--primary-font-family);
     scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
+    box-sizing: border-box;
 }
 
 header {

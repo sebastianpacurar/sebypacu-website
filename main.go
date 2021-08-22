@@ -27,15 +27,16 @@ func main() {
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`,
 		},
 		Styles: []string{
-			"/web/style/Header.css",
-			"/web/style/Navbar.css",
-			"/web/style/Spinner.css",
-			"/web/style/CountriesPage.css",
-			//"/web/style/Footer.css",
+			"/web/style/components/countries/Page.css",
+			"/web/style/components/countries/CardsView.css",
+			"/web/style/components/countries/TableView.css",
+			"/web/style/partials/Header.css",
+			"/web/style/partials/NavBar.css",
+			"/web/style/partials/Spinner.css",
 		},
 	})
 
-	if err := http.ListenAndServe(":7005", nil); err != nil {
+	if err := http.ListenAndServe(":7009", nil); err != nil {
 		log.Fatal(err)
 	}
 }

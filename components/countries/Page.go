@@ -38,25 +38,31 @@ func (p *Page) Render() app.UI {
 		Body(
 			&partials.Header{},
 			&partials.NavBar{},
+			&partials.SideMenu{},
 			app.
-				Main().
+				Main().ID("countries-main").
 				Body(
 					app.
 						Form().
 						Body(
 							app.
-								Input().
-								ID("country-input").
-								Type("text").
-								Placeholder("Filter Page by Letters"),
-							app.
-								Button().
-								Type("submit").
-								Value("Submit").
-								Text("Fetch!"),
+								Div().
+								ID("country-search-container").
+								Body(
+									app.
+										Input().
+										ID("country-input").
+										Type("text").
+										Placeholder("Filter Page by Letters"),
+									app.
+										Button().
+										Type("submit").
+										Value("Submit").
+										Text("Fetch!"),
+								),
 							app.
 								Div().
-								ID("table-layout-container").
+								ID("layout-toggle-container").
 								Body(
 									app.
 										Span().

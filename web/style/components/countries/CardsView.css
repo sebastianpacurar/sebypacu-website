@@ -1,0 +1,114 @@
+#country-cards article#country-cards {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
+    padding: 2%;
+}
+
+#country-cards figure {
+    position: relative;
+    text-align: center;
+    max-width: 300px;
+    padding: 0;
+    margin: 0;
+}
+
+#country-cards figure img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 175px;
+    height: 125px;
+    max-width: 100%;
+    display: block;
+}
+
+#country-cards figcaption p {
+    color: grey;
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+#country-cards .card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#country-cards .card-info p {
+    font-size: 12px;
+    max-width: 70%;
+}
+
+#country-cards .card-info p:first-child {
+    color: grey;
+}
+
+#country-cards .view-country-btn {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: #000000;
+    background-color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    transition-duration: 0.4s;
+}
+
+#country-cards .view-country-btn:hover {
+    opacity: 0.7;
+}
+
+@media (min-width: 600px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*  600 - 768px */
+@media only screen and (min-width: 600px) {
+    .example {
+        grid-template-columns: 2fr;
+    }
+}
+
+/* 768 - 992px */
+@media only screen and (min-width: 768px) {
+    .example {
+        grid-template-columns: 3fr;
+    }
+}
+
+/* 992 - 1200*px */
+@media only screen and (min-width: 992px) {
+    .example {
+        grid-template-columns: 4fr;
+    }
+}
+
+/* 1200+ px */
+@media only screen and (min-width: 1200px) {
+    .example {
+        grid-template-columns: 5fr;
+    }
+}
+
+

@@ -8,6 +8,7 @@ import (
 type NavBar struct {
 	app.Compo
 	Menu
+	SideMenu
 }
 
 type Menu struct {
@@ -22,6 +23,7 @@ type MenuItem struct {
 func (n *NavBar) Render() app.UI {
 
 	var testMenu = Menu{MenuItems: []MenuItem{
+		{Title: "SideMenu", Link: "/"},
 		{Title: "Home", Link: "/"},
 		{Title: "countries", Link: "/countries/all"},
 		{Title: "Quiz", Link: "/quiz-game"},
@@ -39,52 +41,75 @@ func (n *NavBar) Render() app.UI {
 					itemContainerID = strings.ReplaceAll(strings.ToLower(currentItem.Title), " ", "-")
 				}
 				return app.
-					If(i == len(testMenu.MenuItems)-1,
+					If(app.Window().Get("innerWidth").Int() > 600,
 						app.
-							Div().
-							Class("space-filler"),
-						app.
-							Div().
-							Class("nav-item").
-							Class("right").
-							Body(
+							If(i == len(testMenu.MenuItems)-1,
 								app.
-									A().
-									ID(itemContainerID).
-									Href(currentItem.Link).
-									Text(currentItem.Title),
-							),
-					).
-					ElseIf(currentItem.Title == "Home",
-						app.
-							Div().
-							ID("home-icon").
-							Class("nav-item").
-							Body(
+									Div().
+									Class("space-filler"),
 								app.
-									A().
-									Href(currentItem.Link).
+									Div().
+									Class("nav-item").
+									Class("right").
 									Body(
 										app.
-											Span().
-											ID("nav-bar-home-icon").
-											Class("material-icons").
-											Text("home"),
+											A().
+											ID(itemContainerID).
+											Href(currentItem.Link).
+											Text(currentItem.Title),
+									),
+							).
+							ElseIf(currentItem.Title == "Home",
+								app.
+									Div().
+									ID("home-icon").
+									Body(
+										app.
+											A().
+											Href(currentItem.Link).
+											Body(
+												app.
+													Span().
+													Class("navbar-icons").
+													Class("material-icons").
+													Text("home"),
+											),
+									),
+							).
+							ElseIf(currentItem.Title == "SideMenu",
+								app.
+									Div().
+									ID("side-menu-toggle").
+									Body(
+										app.
+											Button().
+											Type("button").
+											Body(
+												app.
+													Span().
+													Class("navbar-icons").
+													Class("material-icons").
+													Text("menu"),
+											),
+									).OnClick(n.ToggleSideMenu),
+							).
+							Else(
+								app.
+									Div().
+									Class("nav-item").
+									Body(
+										app.
+											A().
+											ID(itemContainerID).
+											Href(currentItem.Link).
+											Text(currentItem.Title),
 									),
 							),
-					).
-					Else(
-						app.
-							Div().
-							Class("nav-item").
-							Body(
-								app.
-									A().
-									ID(itemContainerID).
-									Href(currentItem.Link).
-									Text(currentItem.Title),
-							),
-					)
+					).Else()
 			}),
 		)
+}
+
+func (n *NavBar) ToggleSideMenu(ctx app.Context, e app.Event) {
+
 }

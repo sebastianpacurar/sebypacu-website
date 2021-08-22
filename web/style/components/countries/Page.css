@@ -1,0 +1,114 @@
+@import "../../vars.css";
+
+
+/* modify width for all custom --col properties. this is for mobile phones */
+@media only screen and (max-width: 768px) {
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+
+main#countries-main {
+    font-family: var(--primary-font-family);
+    margin: 0 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+aside {
+    position: relative;
+    right: 20%;
+    width: 20%;
+    transition-duration: 1s;
+}
+
+/**** Countries Search Form Area ****/
+form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4%;
+}
+
+#country-search-container {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#country-search-container input[type="text"] {
+    width: 40%;
+    font-size: 20px;
+    padding: 8px;
+    margin-left: 7%;
+    display: block;
+    border: none;
+    border-bottom: 2px solid black;
+    transition-duration: 0.4s;
+}
+
+#country-search-container input[type="text"]:focus {
+    display: block;
+    padding: 8px;
+    border-bottom: 2px solid var(--1st-color);
+    color: darkgreen;
+    outline: none;
+}
+
+#country-search-container input[type="text"]::placeholder {
+    color: darkgreen;
+    opacity: 1;
+}
+
+form button {
+    width: 30%;
+    background-color: #ffffff;
+    border: 2px solid var(--1st-color);
+    border-radius: 10px;
+    color: darkgreen;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+form button:hover {
+    background-color: var(--1st-color);
+    color: #ffffff;
+}
+
+form button:active {
+    background-color: darkgreen;
+    color: #ffffff;
+}
+
+form div#country-search-container {
+}
+
+form div#layout-toggle-container {
+    display: flex;
+    user-select: none;
+}
+
+form #layout-toggle-container .table-layout-view {
+    color: var(--1st-color);
+    font-size: 40px;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+form #layout-toggle-container .table-layout-view:hover {
+    color: #ffffff;
+    background-color: var(--1st-color);
+}
+
+form #layout-toggle-container .table-layout-view:active {
+    color: #ffffff;
+    background-color: darkgreen
+}

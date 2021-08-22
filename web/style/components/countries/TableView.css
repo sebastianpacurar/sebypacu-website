@@ -1,0 +1,100 @@
+#countries-table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+#countries-table caption {
+    margin-bottom: 25px;
+}
+
+#countries-table thead {
+    position: sticky;
+    top: 48px;
+    height: 40px;
+    background-color: darkturquoise;
+    scroll-behavior: smooth;
+}
+
+#countries-table thead th {
+    border: 2px solid darkturquoise;
+}
+
+#countries-table tbody td {
+    border: 2px solid deepskyblue;
+}
+
+#countries-table tbody tr:last-child td {
+    border-bottom-color: darkseagreen;
+}
+
+#countries-table td {
+    text-align: center;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+#countries-table td img {
+    width: 50px;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+}
+
+#countries-table td img:hover {
+    transform: scale(8.0);
+}
+
+#countries-table tbody tr:nth-last-child(2) img, tbody tr:last-child img {
+    transform-origin: bottom;
+}
+
+#countries-table tbody tr:hover td:first-child {
+    background-color: lightgreen;
+}
+
+#countries-table tbody tr {
+    transition-duration: 0.4s;
+}
+
+#countries-table tbody tr:nth-child(even) {
+    background-color: lightsteelblue;
+}
+
+#countries-table tbody tr:nth-child(odd) {
+    background-color: lightgrey;
+}
+
+#countries-table tbody tr:hover {
+    background-color: lightskyblue;
+    cursor: pointer;
+}
+
+#countries-table tfoot {
+    position: sticky;
+    bottom: -1px;
+    height: 40px;
+    background-color: darkseagreen;
+    cursor: pointer;
+    transition-duration: 100ms;
+}
+
+#countries-table tfoot td {
+    border: 2px solid darkseagreen;
+}
+
+#countries-table tfoot:hover {
+    background-color: aquamarine;
+}
+
+#countries-table tfoot td:hover {
+    border-color: aquamarine;
+}
+
+#countries-table tfoot td:active {
+    color: #ffffff;
+    border-color: var(--1st-color);
+}
+
+#countries-table tfoot:active {
+    background-color: var(--1st-color);
+}

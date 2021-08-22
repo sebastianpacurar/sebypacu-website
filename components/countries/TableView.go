@@ -12,7 +12,7 @@ type Table struct {
 
 func (t *Table) Render() app.UI {
 	return app.
-		Table().
+		Table().ID("countries-table").
 		Body(
 			app.
 				Caption().
