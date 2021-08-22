@@ -1,4 +1,4 @@
-package components
+package partials
 
 import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
@@ -9,7 +9,9 @@ type Header struct {
 }
 
 func (h *Header) Render() app.UI {
-	return app.Header().
+	return app.
+		Header().
+		ID("app-header").
 		Body(
 			app.
 				H2().

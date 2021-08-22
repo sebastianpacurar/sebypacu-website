@@ -1,4 +1,4 @@
-package pages
+package countries
 
 import (
 	"encoding/json"
@@ -6,11 +6,11 @@ import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
 	"log"
 	"pwa/API"
-	"pwa/components"
+	"pwa/partials"
 	"strings"
 )
 
-type CountryDetails struct {
+type Country struct {
 	app.Compo
 	Details []CountryInfo
 }
@@ -51,29 +51,28 @@ type Language struct {
 	NativeName string `json:"nativeName"`
 }
 
-func (cd *CountryDetails) OnNav(ctx app.Context) {
-	if err := cd.initCountry(ctx); err != nil {
+func (c *Country) OnNav(ctx app.Context) {
+	if err := c.initCountry(ctx); err != nil {
 		log.Fatalln("Eroare la navigarea pe tara, ", err.Error())
 		return
 	}
-	cd.Update()
+	c.Update()
 }
 
-func (cd *CountryDetails) Render() app.UI {
-
+func (c *Country) Render() app.UI {
 	return app.
 		Div().
 		Body(
-			&components.Header{},
-			&components.NavBar{},
+			&partials.Header{},
+			&partials.NavBar{},
 			app.
-				If(len(cd.Details) > 0,
+				If(len(c.Details) > 0,
 					app.
 						Div().
 						Class("form-container").
 						Body(
-							app.Range(cd.Details).Slice(func(i int) app.UI {
-								country := cd.Details[i]
+							app.Range(c.Details).Slice(func(i int) app.UI {
+								country := c.Details[i]
 								return app.
 									Ul().
 									Body(
@@ -131,14 +130,14 @@ func (cd *CountryDetails) Render() app.UI {
 									)
 							}),
 						),
-					&components.Footer{},
+					&partials.Footer{},
 				).Else(
-				&components.Spinner{},
+				&partials.Spinner{},
 			),
 		)
 }
 
-func (cd *CountryDetails) initCountry(ctx app.Context) error {
+func (c *Country) initCountry(ctx app.Context) error {
 	code := strings.Split(ctx.Page.URL().String(), "/")
 	res, err := API.FetchCountries(fmt.Sprintf("alpha?codes=%s", code[len(code)-1]))
 	if err != nil {
@@ -146,7 +145,7 @@ func (cd *CountryDetails) initCountry(ctx app.Context) error {
 		return err
 	}
 
-	if err := json.Unmarshal(res, &cd.Details); err != nil {
+	if err := json.Unmarshal(res, &c.Details); err != nil {
 		log.Fatalln("Eroare la json Unmarshal pe initCountries()", err.Error())
 		return err
 	}

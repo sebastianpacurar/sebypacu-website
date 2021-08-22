@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/maxence-charriere/go-app/v8/pkg/app"
 	"log"
 	"os"
 	"path/filepath"
@@ -29,4 +30,8 @@ func GetFilePaths(filePath string) ([]string, error) {
 		fp = append(fp, rootPath)
 	}
 	return fp, err
+}
+
+func ScrollToTop(ctx app.Context, e app.Event) {
+	app.Window().ScrollToID("app-header")
 }
