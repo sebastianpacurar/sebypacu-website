@@ -1,4 +1,4 @@
-package components
+package partials
 
 import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
@@ -23,7 +23,7 @@ func (n *NavBar) Render() app.UI {
 
 	var testMenu = Menu{MenuItems: []MenuItem{
 		{Title: "Home", Link: "/"},
-		{Title: "Countries", Link: "/countries"},
+		{Title: "countries", Link: "/countries/all"},
 		{Title: "Quiz", Link: "/quiz-game"},
 		{Title: "Mortăciuni!", Link: "/experiments"},
 	}}

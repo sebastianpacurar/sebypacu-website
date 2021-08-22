@@ -1,8 +1,8 @@
-package pages
+package components
 
 import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
-	"pwa/components"
+	"pwa/partials"
 )
 
 type Home struct {
@@ -13,8 +13,8 @@ func (hp *Home) Render() app.UI {
 	return app.
 		Div().
 		Body(
-			&components.Header{},
-			&components.NavBar{},
-			//&components.Footer{},
+			&partials.Header{},
+			&partials.NavBar{},
+			//&partials.Footer{},
 		)
 }

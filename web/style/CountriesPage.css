@@ -78,6 +78,7 @@ form button:active {
 
 form div#table-layout-container {
     display: flex;
+    user-select: none;
 }
 
 form #table-layout-container .table-layout-view {
@@ -215,16 +216,18 @@ article#cards-container {
 }
 
 figure {
+    position: relative;
     text-align: center;
+    max-width: 300px;
+    height: 200px;
     padding: 0;
     margin: 0;
-    position: relative;
 }
 
 figure img {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 300px;
-    height: 200px;
+    width: 175px;
+    height: 125px;
     max-width: 100%;
     display: block;
 }
