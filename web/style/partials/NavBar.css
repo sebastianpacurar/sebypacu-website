@@ -10,7 +10,8 @@ nav {
     margin-bottom: 30px;
     position: sticky;
     top: -0.1%;
-    z-index: 9;
+    transition: ease-in-out;
+    transition-duration: 0.4s;
 }
 
 .navbar-icons {
@@ -20,20 +21,21 @@ nav {
     padding: 0 2.5%;
 }
 
-#side-menu-toggle button {
+#sm button {
     font-size: 125%;
     background: none;
     outline: none;
     border: none;
 }
 
-#side-menu-toggle button:hover {
+#sm button:hover {
+
     background: none;
     outline: none;
     border: none;
 }
 
-#side-menu-toggle button:active {
+#sm button:active {
     background: none;
     outline: none;
     border: none;
@@ -48,7 +50,7 @@ nav div.right {
 }
 
 nav div.nav-item a,
-#side-menu-toggle button,
+#sm button,
 #home-icon span {
     color: white;
     font-size: 125%;
@@ -61,17 +63,25 @@ nav div.nav-item a,
 }
 
 /* Force the size of the icons to be bigger than the text menu items */
-nav #side-menu-toggle button span,
+nav #sm button span,
 nav #home-icon a span {
     font-size: 200% !important;
 }
 
-nav div.nav-item a:hover {
+.sm-visible {
+    left: 0;
+}
+
+.sm-hidden {
+    left: -200px;
+}
+
+nav div.nav-item a:hover, #sm button:hover {
     background-color: var(--2nd-color);
     border-color: var(--2nd-color);
 }
 
-nav div.nav-item a:active {
+nav div.nav-item a:active #sm button:active{
     background-color: var(--3rd-color);
     border-color: var(--3rd-color);
 }

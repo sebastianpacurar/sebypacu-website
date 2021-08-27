@@ -1,4 +1,4 @@
-package countries
+package countries_page
 
 import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
@@ -12,7 +12,7 @@ type Table struct {
 
 func (t *Table) Render() app.UI {
 	return app.
-		Table().ID("countries-table").
+		Table().ID("geography-table").
 		Body(
 			app.
 				Caption().

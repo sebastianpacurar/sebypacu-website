@@ -16,5 +16,6 @@ func (h *Header) Render() app.UI {
 			app.
 				H2().
 				Text("Bye and FU, JavaScript! ╭∩╮(・◞・) "),
+			&SideMenu{},
 		)
 }

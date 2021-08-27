@@ -3,19 +3,4 @@
     --2nd-color: #008c1f;
     --3rd-color: #005914;
     --primary-font-family: Georgia, Helvetica, serif;
-
-
-    /* Desktop Column Setup */
-    --col-8_33: 8.33%;
-    --col-16_66: 16.66%;
-    --col-25: 25%;
-    --col-33_33: 33.33%;
-    --col-41_66: 41.66%;
-    --col-50: 50%;
-    --col-58_33: 58.33%;
-    --col-66_66: 66.66%;
-    --col-75: 75%;
-    --col-83_33: 83.33%;
-    --col-91_66: 91.66%;
-    --col-100: 100%;
 }

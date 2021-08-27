@@ -1,12 +1,5 @@
-@import "../../vars.css";
+@import "../../../vars.css";
 
-
-/* modify width for all custom --col properties. this is for mobile phones */
-@media only screen and (max-width: 768px) {
-    [class*="col-"] {
-        width: 100%;
-    }
-}
 
 main#countries-main {
     font-family: var(--primary-font-family);

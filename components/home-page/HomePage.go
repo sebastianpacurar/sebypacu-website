@@ -1,15 +1,15 @@
-package components
+package home_page
 
 import (
 	"github.com/maxence-charriere/go-app/v8/pkg/app"
 	"pwa/partials"
 )
 
-type Home struct {
+type HomePage struct {
 	app.Compo
 }
 
-func (hp *Home) Render() app.UI {
+func (hp *HomePage) Render() app.UI {
 	return app.
 		Div().
 		Body(

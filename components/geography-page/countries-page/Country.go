@@ -1,4 +1,4 @@
-package countries
+package countries_page
 
 import (
 	"encoding/json"
@@ -66,74 +66,79 @@ func (c *Country) Render() app.UI {
 			&partials.Header{},
 			&partials.NavBar{},
 			app.
-				If(len(c.Details) > 0,
+				Main().
+				ID(fmt.Sprintf("%s-page", c.Details[0].Name)).
+				Body(
 					app.
-						Div().
-						Class("form-container").
-						Body(
-							app.Range(c.Details).Slice(func(i int) app.UI {
-								country := c.Details[i]
-								return app.
-									Ul().
-									Body(
-										app.Li().Text(country.Name),
-										app.Li().Text(country.TopLevelDomain),
-										app.Li().Text(country.Alpha2Code),
-										app.Li().Text(country.Alpha3Code),
-										app.Li().Text(country.CallingCodes),
-										app.Li().Text(country.Subregion),
-										app.Li().Text(country.Population),
-										app.Li().Text(country.Flag),
-										app.Li().Text(country.LatLng),
-										app.Li().Text(country.Demonym),
-										app.Li().Text(country.Gini),
-										app.Li().Text(country.Timezones),
-										app.Li().Text(country.Borders),
-										app.Li().Text(country.NativeName),
-										app.Li().Text(country.NumericCode),
-										app.
-											Li().
+						If(len(c.Details) > 0,
+							app.
+								Div().
+								Class("form-container").
+								Body(
+									app.Range(c.Details).Slice(func(i int) app.UI {
+										country := c.Details[i]
+										return app.
+											Ul().
 											Body(
-												app.Range(country.Currencies).Slice(func(i int) app.UI {
-													currency := country.Currencies[i]
-													return app.Ul().Body(
-														app.Li().Text(currency.Name),
-														app.Li().Text(currency.Code),
-														app.Li().Text(currency.Symbol),
-													)
-												}),
-											),
-										app.
-											Li().
-											Body(
-												app.Range(country.Languages).Slice(func(i int) app.UI {
-													language := country.Languages[i]
-													return app.
-														Ul().
-														Body(
-															app.Li().Text(language.Name),
-															app.Li().Text(language.NativeName),
-														)
-												}),
-											),
-										app.
-											Li().
-											Body(
-												app.Range(country.Translations).Map(func(k string) app.UI {
-													return app.
-														Ul().
-														Body(
-															app.Li().Text(country.Translations[k]),
-														)
-												}),
-											),
-									)
-							}),
-						),
-					&partials.Footer{},
-				).Else(
-				&partials.Spinner{},
-			),
+												app.Li().Text(country.Name),
+												app.Li().Text(country.TopLevelDomain),
+												app.Li().Text(country.Alpha2Code),
+												app.Li().Text(country.Alpha3Code),
+												app.Li().Text(country.CallingCodes),
+												app.Li().Text(country.Subregion),
+												app.Li().Text(country.Population),
+												app.Li().Text(country.Flag),
+												app.Li().Text(country.LatLng),
+												app.Li().Text(country.Demonym),
+												app.Li().Text(country.Gini),
+												app.Li().Text(country.Timezones),
+												app.Li().Text(country.Borders),
+												app.Li().Text(country.NativeName),
+												app.Li().Text(country.NumericCode),
+												app.
+													Li().
+													Body(
+														app.Range(country.Currencies).Slice(func(i int) app.UI {
+															currency := country.Currencies[i]
+															return app.Ul().Body(
+																app.Li().Text(currency.Name),
+																app.Li().Text(currency.Code),
+																app.Li().Text(currency.Symbol),
+															)
+														}),
+													),
+												app.
+													Li().
+													Body(
+														app.Range(country.Languages).Slice(func(i int) app.UI {
+															language := country.Languages[i]
+															return app.
+																Ul().
+																Body(
+																	app.Li().Text(language.Name),
+																	app.Li().Text(language.NativeName),
+																)
+														}),
+													),
+												app.
+													Li().
+													Body(
+														app.Range(country.Translations).Map(func(k string) app.UI {
+															return app.
+																Ul().
+																Body(
+																	app.Li().Text(country.Translations[k]),
+																)
+														}),
+													),
+											)
+									}),
+								),
+							&partials.Footer{},
+						).Else(
+						&partials.Spinner{},
+					),
+				),
 		)
 }
 

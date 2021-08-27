@@ -1,4 +1,4 @@
-package countries
+package countries_page
 
 import (
 	"encoding/json"
@@ -10,27 +10,27 @@ import (
 	"strings"
 )
 
-type Page struct {
+type CountriesPage struct {
 	app.Compo
 	Country
 	Grid
 	layout map[string]bool
 }
 
-func (p *Page) OnNav(ctx app.Context) {
-	if err := p.initPage(ctx); err != nil {
+func (cp *CountriesPage) OnNav(ctx app.Context) {
+	if err := cp.initCountriesPage(ctx); err != nil {
 		return
 	}
-	p.Update()
+	cp.Update()
 }
 
-func (p *Page) Render() app.UI {
+func (cp *CountriesPage) Render() app.UI {
 
 	/// set default layout to "table"
-	if len(p.layout) == 0 {
-		p.layout = make(map[string]bool)
-		p.layout["table"] = true
-		p.layout["cards"] = false
+	if len(cp.layout) == 0 {
+		cp.layout = make(map[string]bool)
+		cp.layout["table"] = true
+		cp.layout["cards"] = false
 	}
 
 	return app.
@@ -38,9 +38,8 @@ func (p *Page) Render() app.UI {
 		Body(
 			&partials.Header{},
 			&partials.NavBar{},
-			&partials.SideMenu{},
 			app.
-				Main().ID("countries-main").
+				Main().ID("countries-page").
 				Body(
 					app.
 						Form().
@@ -53,7 +52,7 @@ func (p *Page) Render() app.UI {
 										Input().
 										ID("country-input").
 										Type("text").
-										Placeholder("Filter Page by Letters"),
+										Placeholder("Filter CountriesPage by Letters"),
 									app.
 										Button().
 										Type("submit").
@@ -70,28 +69,28 @@ func (p *Page) Render() app.UI {
 										Class("material-icons").
 										Class("table-layout-view").
 										Text("table_view").
-										OnClick(p.switchPageView),
+										OnClick(cp.switchCountriesPageView),
 									app.
 										Span().
 										ID("cards-layout-icon").
 										Class("material-icons").
 										Class("table-layout-view").
 										Text("grid_view").
-										OnClick(p.switchPageView),
+										OnClick(cp.switchCountriesPageView),
 								),
 						),
 					app.
-						If(len(p.Details) > 0,
+						If(len(cp.Details) > 0,
 							app.
-								If(p.layout["table"],
+								If(cp.layout["table"],
 									&Table{
-										data: p.Details,
+										data: cp.Details,
 									},
 								).
-								ElseIf(p.layout["cards"],
-									app.If(p.Mounted(),
+								ElseIf(cp.layout["cards"],
+									app.If(cp.Mounted(),
 										&Grid{
-											data: p.Details,
+											data: cp.Details,
 										},
 									),
 								),
@@ -104,7 +103,7 @@ func (p *Page) Render() app.UI {
 		)
 }
 
-func (p *Page) initPage(ctx app.Context) error {
+func (cp *CountriesPage) initCountriesPage(ctx app.Context) error {
 
 	data, err := API.FetchCountries("all")
 	if err != nil {
@@ -112,8 +111,8 @@ func (p *Page) initPage(ctx app.Context) error {
 		return err
 	}
 
-	if err := json.Unmarshal(data, &p.Details); err != nil {
-		log.Fatalln("Eroare la json Unmarshal pe initPage()", err.Error())
+	if err := json.Unmarshal(data, &cp.Details); err != nil {
+		log.Fatalln("Eroare la json Unmarshal pe initCountriesPage()", err.Error())
 		return err
 	}
 
@@ -121,22 +120,22 @@ func (p *Page) initPage(ctx app.Context) error {
 }
 
 func NavigateToCountry(ctx app.Context, e app.Event) {
-	ctx.Navigate(fmt.Sprintf("/countries/alpha2/%s", ctx.JSSrc.Get("id").String()))
+	ctx.Navigate(fmt.Sprintf("/geography/country/alpha2/%s", ctx.JSSrc.Get("id").String()))
 }
 
-// SwitchPageView
+// SwitchCountriesPageView
 /// Set "active" icon class to the icon which has the key set to true.
 /// "clickedIcon" can be either 'table' or 'cards' to match the key names.
-func (p *Page) switchPageView(ctx app.Context, e app.Event) {
+func (cp *CountriesPage) switchCountriesPageView(ctx app.Context, e app.Event) {
 	clickedIcon := strings.Split(ctx.JSSrc.Get("id").String(), "-")[0]
 
-	if !p.layout[clickedIcon] {
-		for k := range p.layout {
-			p.layout[k] = !p.layout[k]
+	if !cp.layout[clickedIcon] {
+		for k := range cp.layout {
+			cp.layout[k] = !cp.layout[k]
 		}
 	} else {
 		return
 	}
 
-	p.Update()
+	cp.Update()
 }
